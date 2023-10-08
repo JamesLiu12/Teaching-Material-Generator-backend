@@ -8,6 +8,7 @@ class InputHandler:
         self.teaching_material_token = 1000
         self.outline_token = 1000
         self.client_json_path = f"json/client/{client_id}.json"
+        self.markdown_path = f"markdowns/{client_id}.md"
         self.generator = Generator()
         self.client_id = client_id
         if not os.path.isfile(self.client_json_path):
@@ -82,7 +83,7 @@ class InputHandler:
         # 从json读取content
         client_dict = self.__load_from_client()
         content_list = client_dict['content']
-        with open(f"markdowns/{self.client_id}.md", "w") as file:
+        with open(self.markdown_path, "w") as file:
             file.write("".join(content_list))
 
         # TODO 调用generate PPT API 在这里写 這

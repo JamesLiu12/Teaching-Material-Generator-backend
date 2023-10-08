@@ -60,4 +60,6 @@ class FakeBackend(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     shutil.rmtree('json/client')
     os.mkdir('json/client')
+    shutil.rmtree('markdowns')
+    os.mkdir('markdowns')
     HTTPServer(("127.0.0.1", 50000), FakeBackend).serve_forever()
