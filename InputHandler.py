@@ -1,12 +1,18 @@
 import json
 from Generator import Generator
+import os
+
 
 class InputHandler:
-    def __init__(self):
+    def __init__(self, client_id):
         self.teaching_material_token = 1000
         self.outline_token = 1000
-        self.client_json_path = "json/client.json"
+        self.client_json_path = f"json/client/{client_id}.json"
         self.generator = Generator()
+        self.client_id = client_id
+        if not os.path.isfile(self.client_json_path):
+            with open(self.client_json_path, "x") as file:
+                file.write("{}")
 
     def __save_to_client(self, dict_to_save):
         with open(self.client_json_path, 'w') as file:
@@ -57,7 +63,7 @@ class InputHandler:
 
         # 调用模型得到输出
         content = self.generator.generate_content(outline_list)
-        client_dict["outline"] = self.__split_str_by_token(content)
+        client_dict["content"] = self.__split_str_by_token(content)
         self.__save_to_client(client_dict)
         return content
 
@@ -75,9 +81,14 @@ class InputHandler:
     def generate_ppt(self):
         # 从json读取content
         client_dict = self.__load_from_client()
-        content = client_dict['content']
+        content_list = client_dict['content']
+        with open(f"markdowns/{self.client_id}.md", "w") as file:
+            file.write("".join(content_list))
 
-        # TODO 调用generate PPT API
+        # TODO 调用generate PPT API 在这里写 這
+
+        # os.system(fr'cmd /C"cd slidev & pnpm slidev .\markdowns\{self.client_id}.md --open"')
+        # os.system("q & cd..")
         return open("test.ppt")
 
     def upload_content(self, content):
