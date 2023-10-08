@@ -1,0 +1,4 @@
+{
+  "generate outline": "Based on the following teacher-provided questions and student answers, analyze for any errors or inaccuracies in the answers. If errors are identified, please generate a lesson plan to rectify these issues for the student.",
+  "generate content": "Take a deep breath, You are a professional senior teacher who teaches secondary school. Now you need to follow the below outline to generate a PowerPoint in Markdown format. Outline: "
+}
