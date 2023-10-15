@@ -1,3 +1,5 @@
+import time
+
 import json
 from Generator import Generator
 import os
@@ -8,7 +10,8 @@ class InputHandler:
         self.teaching_material_token = 1000
         self.outline_token = 1000
         self.client_json_path = f"json/client/{client_id}.json"
-        self.markdown_path = f"markdowns/{client_id}.md"
+        self.markdown_path = f"slidev/{client_id}.md"
+        self.pdf_path = f"slidev/{client_id}-export.pdf"
         self.generator = Generator()
         self.client_id = client_id
         if not os.path.isfile(self.client_json_path):
@@ -88,9 +91,14 @@ class InputHandler:
 
         # TODO 调用generate PPT API 在这里写 這
 
-        # os.system(fr'cmd /C"cd slidev & pnpm slidev .\markdowns\{self.client_id}.md --open"')
-        # os.system("q & cd..")
-        return open("test.ppt")
+        os.system(fr'cmd /C"cd slidev & pnpm slidev export {self.client_id}.md & cd.."')
+        # os.system("cd..")
+        while True:
+            try:
+                return open(self.pdf_path, 'rb'), self.markdown_path, self.pdf_path
+            except FileNotFoundError:
+                print("file not found")
+                time.sleep(2)
 
     def upload_content(self, content):
         client_dict = self.__load_from_client()

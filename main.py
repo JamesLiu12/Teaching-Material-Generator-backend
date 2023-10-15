@@ -1,4 +1,7 @@
+import os
 import shutil
+import subprocess
+import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 from InputHandler import InputHandler
@@ -37,12 +40,14 @@ class FakeBackend(BaseHTTPRequestHandler):
             elif operation == 'regenerate content':
                 response = input_handler.regenerate_content()
             elif operation == 'generate ppt':
-                response = input_handler.generate_ppt()
+                pdf, md_path, pdf_path = input_handler.generate_ppt()
                 self.send_response(200)
-                self.send_header("Content-type", "application/vnd.ms-powerpoint; charset=utf-8")
-                self.send_header("Content-length", str(len(response)))
+                self.send_header('Content-Type', 'application/pdf')
                 self.end_headers()
-                self.wfile.write(response)
+                self.wfile.write(pdf.read())
+                pdf.close()
+                os.remove(md_path)
+                os.remove(pdf_path)
                 return
             elif operation == 'upload content':
                 response = input_handler.upload_content(dict_data['content'])
@@ -60,6 +65,12 @@ class FakeBackend(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     shutil.rmtree('json/client')
     os.mkdir('json/client')
-    shutil.rmtree('markdowns')
-    os.mkdir('markdowns')
+    # for file_name in os.listdir("slidev"):
+    #     if file_name.endswith('.md') or file_name.endswith('.pdf'):
+    #         file_path = os.path.join("slidev", file_name)
+    #         if os.path.exists(file_path):
+    #             os.remove(file_path)
+    #         else:
+    #             print(f"文件 {file_path} 不存在")
+
     HTTPServer(("127.0.0.1", 50000), FakeBackend).serve_forever()
