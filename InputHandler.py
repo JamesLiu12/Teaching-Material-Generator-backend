@@ -3,6 +3,7 @@ import time
 import json
 from Generator import Generator
 import os
+import aspose.pdf as ap
 
 
 class InputHandler:
@@ -10,8 +11,8 @@ class InputHandler:
         self.teaching_material_token = 1000
         self.outline_token = 1000
         self.client_json_path = f"json/client/{client_id}.json"
-        self.markdown_path = f"slidev/{client_id}.md"
-        self.pdf_path = f"slidev/{client_id}-export.pdf"
+        self.latex_path = f"latex/{client_id}.md"
+        self.pdf_path = f"pdf/{client_id}-export.pdf"
         self.generator = Generator()
         self.client_id = client_id
         if not os.path.isfile(self.client_json_path):
@@ -65,8 +66,12 @@ class InputHandler:
         client_dict["outline"] = outline_list
         self.__save_to_client(client_dict)
 
+        #读入teaching_material_list
+        teaching_material_list = client_dict['teaching_material']
+
         # 调用模型得到输出
-        content = self.generator.generate_content(outline_list)
+        content = self.generator.generate_content(teaching_material_list, outline_list)
+        content = content[content.find(r"\documentclass"):content.find(r"\end{document}") + len(r"\end{document}")]
         client_dict["content"] = self.__split_str_by_token(content)
         self.__save_to_client(client_dict)
         return content
@@ -76,29 +81,44 @@ class InputHandler:
             client_dict = json.load(file)
         outline_list = client_dict["outline"]
 
+        # 读入teaching_material_list
+        teaching_material_list = client_dict['teaching_material']
+
         # 调用模型得到输出
-        content = self.generator.generate_content(outline_list)
+        content = self.generator.generate_content(teaching_material_list, outline_list)
+        content = content[content.find(r"\documentclass"):content.find(r"\end{document}") + len(r"\end{document}")]
         client_dict["outline"] = self.__split_str_by_token(content)
         self.__save_to_client(client_dict)
         return content
 
-    def generate_ppt(self):
+    def generate_pdf(self):
         # 从json读取content
         client_dict = self.__load_from_client()
         content_list = client_dict['content']
-        with open(self.markdown_path, "w") as file:
+        with open(self.latex_path, "w") as file:
             file.write("".join(content_list))
 
         # TODO 调用generate PPT API 在这里写 這
 
-        os.system(fr'cmd /C"cd slidev & pnpm slidev export {self.client_id}.md & cd.."')
-        # os.system("cd..")
-        while True:
-            try:
-                return open(self.pdf_path, 'rb'), self.markdown_path, self.pdf_path
-            except FileNotFoundError:
-                print("file not found")
-                time.sleep(2)
+        # os.system(fr'cmd /C"cd slidev & pnpm slidev export {self.client_id}.md & cd.."')
+        # # os.system("cd..")
+        # while True:
+        #     try:
+        #         return open(self.pdf_path, 'rb'), self.markdown_path, self.pdf_path
+        #     except FileNotFoundError:
+        #         print("file not found")
+        #         time.sleep(2)
+
+        # 创建 TeXLoadOptions 类对象
+        options = ap.TeXLoadOptions()
+
+        # 创建文档类对象
+        document = ap.Document(self.latex_path, options)
+
+        # 将 Latex 转换为 PDF
+        document.save(self.pdf_path)
+
+        return self.latex_path, self.pdf_path
 
     def upload_content(self, content):
         client_dict = self.__load_from_client()

@@ -3,7 +3,7 @@ import json
 import os
 
 client_id_to_time = {}
-timeout_second = 60
+timeout_second = 600
 
 
 def check_client_id(client_id):

@@ -40,13 +40,14 @@ class FakeBackend(BaseHTTPRequestHandler):
             elif operation == 'regenerate content':
                 response = input_handler.regenerate_content()
             elif operation == 'generate ppt':
-                pdf, md_path, pdf_path = input_handler.generate_ppt()
+                latex_path, pdf_path = input_handler.generate_pdf()
+                pdf = open(pdf_path, 'rb')
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/pdf')
                 self.end_headers()
                 self.wfile.write(pdf.read())
                 pdf.close()
-                os.remove(md_path)
+                os.remove(latex_path)
                 os.remove(pdf_path)
                 return
             elif operation == 'upload content':

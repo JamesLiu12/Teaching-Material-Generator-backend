@@ -3,7 +3,7 @@ import json
 
 
 class Generator:
-    def __init__(self, provider=g4f.Provider.Aivvm, model="gpt-3.5-turbo"):
+    def __init__(self, provider=g4f.Provider.Aichat, model="gpt-3.5-turbo"):
         self.model = model
         self.provider = provider
 
@@ -21,18 +21,20 @@ class Generator:
         )
         return response
 
-    def __get_response_from_list(self, instruction, text_list):
+    def __get_response_from_list(self, instruction, outline):
         messages = [
             {"role": "system", "content": instruction},
         ]
-        for text in text_list:
+        for text in outline:
             messages.append({"role": "user", "content": text})
         return self.__get_completion_from_messages(messages)
 
     def generate_outline(self, teaching_material: list):
         instruction = self.__read_instruction("generate outline")
+        list_concat = ["Here is the input text:"] + teaching_material
         return self.__get_response_from_list(instruction, teaching_material)
 
-    def generate_content(self, outline: list):
+    def generate_content(self, teaching_material: list, outline: list):
         instruction = self.__read_instruction("generate content")
-        return self.__get_response_from_list(instruction, outline)
+        list_concat = ["Here is the input text:"] + teaching_material + ["Here is the outline:"] + outline
+        return self.__get_response_from_list(instruction, list_concat)
