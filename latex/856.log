@@ -1,0 +1,67 @@
+This is ObjectTeX, Version 3.1415926-1.0 (TeX engine: Aspose.TeX 23.8) (preloaded format=objectlatex 2023.8.16)  17 10月 2023 21:21
+entering extended mode
+**
+(
+LaTeX2e <2011/06/27>
+(article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+File not found: 856.aux. Ignored due to IgnoreMissingPackages option setting.
+File not found: 856.aux. Ignored due to IgnoreMissingPackages option setting.
+(856.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 9.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 13.
+ (omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 25.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 25.
+ [1
+
+] [2]
+(D:\JamesLiu\Documents\Teaching-Material-Generator-all\backend\latex\856.aux) )
+ 
+Here is how much of TeX's memory you used:
+  strings out of 
+  string characters out of 
+  words of memory out of 
+ 3321 multiletter control sequences out of 
+  words of font info for 26 fonts, out of  for 75
+ 14 hyphenation exceptions out of 307
+ 23i, 6n, 19p, b, 185s stack positions out of 5000i, 40n, 200p, b, 6000s
+Output written on object model (2 pages).

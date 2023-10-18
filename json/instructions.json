@@ -1,4 +1,4 @@
 {
-  "generate outline": "We plan to write a latex draft as a lesson plan based on the input text. Can you first generate the outline in latex for it?\n",
-  "generate content": "Please write a latex draft as a lesson plan based on the input text.\nWe plan the lesson plan to have the given architecture.\n"
+  "generate outline": "We plan to write a latex draft as a lesson plan based on the input text. Can you first generate the outline for it?\n",
+  "generate content": "Please write a latex draft as a lesson plan based on the input text. You should also provide some examples as homework.\n"
 }
